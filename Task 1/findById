@@ -1,0 +1,20 @@
+    @Override
+    public User findById(String id) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String str;
+            while ((str = reader.readLine()) != null) {
+                String[] info = str.split("\\|");
+                if (info[0] != null) {
+                    String currentId = info[0];
+                    if (currentId.equals(id)) {
+                        System.out.println("Пользователь найден");
+                        User user = new User(currentId, info[1], info[2], info[3]);
+                        return user;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+        return null;
+    }
